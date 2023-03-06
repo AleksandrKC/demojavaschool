@@ -1,0 +1,17 @@
+set mode Oracle;
+drop table if exists users cascade;
+drop table if exists roles cascade;
+drop table if exists users_roles cascade;
+drop table if exists account cascade;
+drop table if exists transfer cascade;
+drop SEQUENCE if exists USERS_SEQ_CUSTOM;
+drop SEQUENCE if exists TRANSFER_SEQ_CUSTOM;
+create table users (id number NOT NULL PRIMARY KEY, username varchar2(50) not null, password varchar2(100) not null, email varchar2(100), status VARCHAR2(50) NOT NULL);
+create table roles (id number NOT NULL PRIMARY KEY, name varchar2(50) not null );
+create table users_roles (user_id number unique not null , role_id number not null, PRIMARY KEY (user_id, role_id));
+ALTER TABLE users_roles ADD FOREIGN KEY (user_id) REFERENCES users(id);
+ALTER TABLE users_roles ADD FOREIGN KEY (role_id) REFERENCES roles(id);
+create table account (id number NOT NULL PRIMARY KEY, name VARCHAR2(50) NOT NULL, user_id number, amount number NOT NULL, status VARCHAR2(50) NOT NULL, bonuscounter number not null default 0);
+create table transfer (id number NOT NULL PRIMARY KEY, accountname VARCHAR2(50) NOT NULL, userid number, amount number NOT NULL, status VARCHAR2(50) NOT NULL,operationtype varchar2(50), recorddate VARCHAR2(50));
+CREATE SEQUENCE USERS_SEQ_CUSTOM MINVALUE 1 MAXVALUE 999999999 INCREMENT BY 1 START WITH 10000 NOCACHE NOCYCLE;
+CREATE SEQUENCE TRANSFER_SEQ_CUSTOM MINVALUE 1 MAXVALUE 999999999 INCREMENT BY 1 START WITH 10000 NOCACHE NOCYCLE;

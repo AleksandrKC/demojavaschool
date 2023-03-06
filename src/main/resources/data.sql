@@ -1,0 +1,11 @@
+insert into users(id, username, password, email, status) values ( 1,'user','$2a$10$1QTRfI4oDghjc/YQmUvb7u.uku.OUMbOt0ySl1ChclpiGQVoSNQUG','someemailu@mailaa.ru', 'A');
+insert into users(id, username, password, email, status) values ( 2,'manager','$2a$10$1QTRfI4oDghjc/YQmUvb7u.uku.OUMbOt0ySl1ChclpiGQVoSNQUG','manager@gmailaa.com', 'A');
+insert into users(id, username, password, email, status) values ( 3,'admin','$2a$10$1QTRfI4oDghjc/YQmUvb7u.uku.OUMbOt0ySl1ChclpiGQVoSNQUG','admin@mailaa.com', 'A' );
+insert into roles (id,name) values (1,'ROLE_USER');
+insert into roles (id,name) values (2,'ROLE_MANAGER');
+insert into roles (id,name) values (3,'ROLE_ADMIN');
+insert into users_roles (user_id, role_id) select id, (select id from roles where name='ROLE_USER') from users where username = 'user';
+insert into users_roles (user_id, role_id) select id, (select id from roles where name='ROLE_MANAGER') from users where username = 'manager';
+insert into users_roles (user_id, role_id) select id, (select id from roles where name='ROLE_ADMIN') from users where username = 'admin';
+insert into account(id, name,user_id, amount, status) values ( 1,'testaccount', 1,500.57,'A' );
+insert into transfer(id, accountname,userid, amount, status, recorddate, operationtype) values ( 1,'testaccount', 1,500.57,'A', '2023-02-24', 'refill' );

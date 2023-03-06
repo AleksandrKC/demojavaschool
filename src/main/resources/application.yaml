@@ -1,0 +1,38 @@
+server:
+  port: 8095
+spring:
+  spring:
+    mvc:
+      log-request-details=true:
+  mustache:
+    servlet:
+      expose-request-attributes: true
+  jpa:
+    show-sql: true
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        temp:
+          use_jdbc_metadata_defaults: false
+    generate-ddl: true
+  datasource:
+    hikari:
+      transaction-isolation: TRANSACTION_READ_COMMITTED
+      maximum-pool-size: 15
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:mydb;Mode=Oracle
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+logging:
+  level:
+    web: trace
+    org:
+      springframework:
+        web: INFO # DEBUG
+        orm:
+          jpa: INFO # DEBUG
+      transaction: INFO # DEBUG
